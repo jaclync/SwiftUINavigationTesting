@@ -1,16 +1,26 @@
-//
-//  ContentView.swift
-//  Shared
-//
-//  Created by Jaclyn Chen on 2022/6/9.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showsCategoryOnly: Bool = false
+    @State private var showsCategoryAndRecipe: Bool = false
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            VStack {
+                Text("Hello, foodie!")
+                    .padding()
+                NavigationLink(destination: CategoryView(showsRecipe: false), isActive: $showsCategoryOnly) {
+                    Text("Check category only")
+                }
+                NavigationLink(destination: CategoryView(showsRecipe: true), isActive: $showsCategoryAndRecipe) {
+                    Text("Check category and recipe")
+                }
+            }
+        }
+        .navigationViewStyle(.stack)
+        .onAppear {
+            showsCategoryAndRecipe = true
+        }
     }
 }
 
